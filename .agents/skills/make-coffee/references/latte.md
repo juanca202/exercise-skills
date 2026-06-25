@@ -1,8 +1,8 @@
 # Latte
 
-A latte consists of:
+Un latte consiste en:
 
 - Espresso
-- Steamed milk
+- Leche al vapor
 
-To prepare the milk, read `references/milk-frothing.md`.
+Para preparar la leche, leer `references/milk-frothing.md`.

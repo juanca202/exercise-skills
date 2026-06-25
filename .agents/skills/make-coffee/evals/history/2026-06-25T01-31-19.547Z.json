@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-06-25T01:31:19.547Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 1,
+      "eval_name": "Guía de preparación de espresso con sección de contexto dinámico",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 28863,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "No pude acceder al archivo de referencia `references/espresso.md` (faltan permisos de lectura), así que te respondo con la guía general. Si quieres que use la referencia del skill, concédeme permiso y la incorporo.\n\nTus dos problemas —**amargo** y **aguado**— suelen venir de la misma causa raíz: **sub-extracción combinada con mala proporción**. Vamos por partes.\n\n## Por qué sale así\n\n- **Aguado / sin cuerpo** → el agua pasó demasiado rápido. Molienda muy gruesa, poco café, o falta de presión/compactado.\n- **Amargo** → suele ser sobre-extracción (agua muy caliente, molienda demasiado fina que quema) **o** café quemado/viejo. Que tengas amargo *y* aguado a la vez apunta a un **canal de agua** (channeling): el agua encuentra un atajo, sobre-extrae una zona y deja el resto sin tocar.\n\n## Parámetros de referencia (espresso clásico)\n\n| Variable | Objetivo |\n|---|---|\n| Dosis (in) | 18 g (cesta doble) |\n| Rendimiento (out) | 36 g en taza (ratio 1:2) |\n| Tiempo | 25–30 s |\n| Temperatura | 92–94 °C |\n| Molienda | Fina, tipo sal fina |\n\n## Cómo corregirlo, en orden\n\n1. **Pesa todo.** Sin báscula vas a ciegas. 18 g dentro → 36 g fuera. Si no tienes doble cesta, ajusta a tu tamaño manteniendo el ratio 1:2.\n2. **Ajusta la molienda según el tiempo:**\n   - Sale en menos de 20 s y aguado → muele **más fino**.\n   - Pasa de 35 s y amargo → muele **más grueso**.\n3. **Distribución y compactado parejo.** Nivela el café antes de prensar y prensa recto con presión constante. Un prensado torcido es la causa #1 de channeling (tu mezcla amargo+aguado).\n4. **Café fresco.** Idealmente tostado hace menos de 3–4 semanas. El café viejo sabe plano y amargo.\n5. **Temperatura.** Si tu máquina recalienta, deja purgar unos segundos antes de extraer; el agua hirviendo quema y amarga.\n\n**Empieza por pesar y cronometrar** una extracción tal como la haces hoy: con esos dos números ya sabremos exactamente qué mover.\n\n¿Me dices qué equipo usas (máquina + molinillo) y cuánto café y tiempo te da ahora? Afino los números a tu caso.\n\n**Archivos de contexto dinámico**\n- Ninguno (no se pudo leer `references/espresso.md`: permiso denegado)",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre preparar o extraer un espresso",
+          "pass": true,
+          "reasoning": "The output provides extensive guidance on preparing and extracting espresso, including reference parameters (dose, yield, time, temperature, grind), diagnosis of bitter/watery results, and a step-by-step correction process. This clearly satisfies the assertion."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta aborda causas de espresso amargo o aguado (p. ej., molienda, tiempo de extracción, dosis o temperatura del agua)",
+          "pass": true,
+          "reasoning": "The output thoroughly addresses the causes of bitter and watery espresso, explicitly covering grind size (molienda fina/gruesa), extraction time (25-30s, ajustar según tiempo), dose (18g, ratio 1:2), and water temperature (92-94°C, agua hirviendo quema). This satisfies the assertion's requirements."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output ends with a section explicitly headed '**Archivos de contexto dinámico**', which matches the required header 'Archivos de contexto dinámico'. The formatting as bold markdown rather than a markdown heading still constitutes a labeled section with that header."
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/espresso.md",
+          "pass": true,
+          "reasoning": "The output ends with a section titled '**Archivos de contexto dinámico**' which explicitly references `references/espresso.md` ('Ninguno (no se pudo leer `references/espresso.md`: permiso denegado)'). The assertion only requires that the section list references/espresso.md, which it does, even though the context is that the file could not be read."
+        },
+        {
+          "id": "assert-5",
+          "text": "La sección 'Archivos de contexto dinámico' no lista references/latte.md",
+          "pass": true,
+          "reasoning": "The 'Archivos de contexto dinámico' section lists only 'Ninguno' with a note that references/espresso.md could not be read. It does not list references/latte.md, so the assertion is satisfied."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 28863,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

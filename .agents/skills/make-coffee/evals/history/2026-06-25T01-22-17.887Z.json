@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-06-25T01:22:17.887Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 3,
+      "eval_name": "Unrelated git request should not activate skill",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 15676,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "Here's how to rebase your feature branch onto `main` and minimize conflicts:\n\n## Basic rebase\n\n```bash\n# 1. Make sure main is up to date\ngit checkout main\ngit pull origin main\n\n# 2. Switch back to your feature branch\ngit checkout feature/your-branch\n\n# 3. Rebase onto main\ngit rebase main\n```\n\n## If conflicts happen\n\nConflicts aren't always avoidable, but here's the workflow when they appear:\n\n```bash\n# Git pauses and tells you which files conflict\ngit status\n\n# Edit the conflicted files, resolve the <<<<<<< ======= >>>>>>> markers\n# Then stage the resolved files\ngit add <resolved-file>\n\n# Continue the rebase\ngit rebase --continue\n\n# (Repeat until done. To bail out entirely:)\ngit rebase --abort\n```\n\n## Tips to reduce conflicts\n\n1. **Rebase often.** Don't let your branch drift far behind `main`. Small, frequent rebases beat one giant painful one.\n2. **Keep commits focused.** Small logical commits are easier to replay than huge ones.\n3. **Use `rerere`** so Git remembers how you resolved repeated conflicts:\n   ```bash\n   git config --global rerere.enabled true\n   ```\n4. **Communicate** with teammates touching the same files to avoid overlapping edits.\n5. **Pull with rebase by default** to keep history linear:\n   ```bash\n   git config --global pull.rebase true\n   ```\n\n## If you've already pushed the branch\n\nAfter rebasing, history is rewritten, so you'll need a force push:\n\n```bash\ngit push --force-with-lease origin feature/your-branch\n```\n\n`--force-with-lease` is safer than `--force` — it refuses to overwrite if someone else pushed in the meantime.\n\nA truly \"conflict-free\" rebase can't be guaranteed when the same lines changed on both branches, but rebasing early and often is the single most effective habit for keeping them rare and small.",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "Response provides guidance about git rebase of a feature branch onto main",
+          "pass": true,
+          "reasoning": "The output is a thorough guide on rebasing a feature branch onto main, including the basic rebase commands (git rebase main after checking out the feature branch), conflict resolution workflow, tips to reduce conflicts, and force-push guidance after rewriting history. This directly satisfies the assertion."
+        },
+        {
+          "id": "assert-2",
+          "text": "Response does not include a section titled 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output is about git rebasing and contains no section titled 'Archivos de contexto dinámico' (nor any equivalent). The assertion is satisfied."
+        },
+        {
+          "id": "assert-3",
+          "text": "Response does not reference espresso or latte coffee preparation",
+          "pass": true,
+          "reasoning": "The output is entirely about git rebase workflow and conflict resolution. It contains no references to espresso, latte, or any coffee preparation."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 15676,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

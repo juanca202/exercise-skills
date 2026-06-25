@@ -1,0 +1,143 @@
+# skillgrade eval — varios skills (local + Gemini, sin Docker)
+#
+# Sin `skill:` → auto-detecta todos los skills en .agents/skills y .claude/skills
+#
+# Uso desde la raíz del repo:
+#   skillgrade --smoke
+#   skillgrade --eval=test-hello,test-system-info
+#   skillgrade preview
+#
+# Requiere en .env:
+#   GEMINI_API_KEY=...
+#   GEMINI_CLI_TRUST_WORKSPACE=true
+# Y el CLI: npm i -g @google/gemini-cli
+
+version: "1"
+
+defaults:
+  agent: gemini
+  provider: local
+  trials: 1
+  timeout: 300
+  threshold: 0.8
+
+tasks:
+  - name: test-hello
+    instruction: |
+      The user says "hola". Use the hello skill to respond with a greeting in
+      three different languages. Save the full response to out.txt in the
+      current working directory.
+
+    graders:
+      - type: deterministic
+        run: |
+          if ! test -f out.txt; then
+            echo '{"score": 0.0, "details": "out.txt not found", "checks": [{"name": "file-exists", "passed": false, "message": "missing out.txt"}]}'
+            exit 0
+          fi
+          score=0
+          checks=""
+          add_check() {
+            if [ -n "$checks" ]; then checks="$checks,"; fi
+            checks="$checks{\"name\":\"$1\",\"passed\":$2,\"message\":\"$3\"}"
+            if [ "$2" = "true" ]; then score=$((score + 1)); fi
+          }
+          add_check "file-exists" true "out.txt found"
+          lines=$(grep -cve '^\s*$' out.txt 2>/dev/null || echo 0)
+          if [ "$lines" -ge 3 ]; then
+            add_check "three-lines" true "at least 3 non-empty lines"
+          else
+            add_check "three-lines" false "expected 3 greeting lines, got $lines"
+          fi
+          langs=0
+          grep -qi 'hola\|qué tal\|buenos' out.txt && langs=$((langs + 1))
+          grep -qi 'hello\|how\|good morning\|hi' out.txt && langs=$((langs + 1))
+          grep -qi 'bonjour\|comment\|salut\|ça va\|come va' out.txt && langs=$((langs + 1))
+          if [ "$langs" -ge 2 ]; then
+            add_check "multilingual" true "greeting patterns in $langs language groups"
+          else
+            add_check "multilingual" false "expected greetings in multiple languages"
+          fi
+          final=$(awk "BEGIN {printf \"%.2f\", $score / 3}")
+          echo "{\"score\": $final, \"details\": \"passed $score/3 checks\", \"checks\": [$checks]}"
+        weight: 1.0
+
+  - name: test-system-info
+    instruction: |
+      Use the system-info skill to display basic operating system information
+      (OS name, hostname, current user). Save the full text output to out.txt
+      in the current working directory.
+
+    graders:
+      - type: deterministic
+        run: |
+          if grep -q "Sistema operativo" out.txt 2>/dev/null; then
+            echo '{"score": 1.0, "details": "out.txt contains OS info", "checks": [{"name": "os-line", "passed": true, "message": "found Sistema operativo"}]}'
+          else
+            echo '{"score": 0.0, "details": "out.txt missing OS info", "checks": [{"name": "os-line", "passed": false, "message": "no Sistema operativo line"}]}'
+          fi
+        weight: 1.0
+
+  - name: test-roll-dice
+    instruction: |
+      Use the roll-dice skill to roll a 20-sided die (d20). Save only the
+      numeric result to out.txt in the current working directory.
+
+    graders:
+      - type: deterministic
+        run: |
+          if ! test -f out.txt; then
+            echo '{"score": 0.0, "details": "out.txt not found", "checks": [{"name": "file-exists", "passed": false, "message": "missing out.txt"}]}'
+            exit 0
+          fi
+          result=$(grep -Eo '[0-9]+' out.txt | head -1)
+          if [ -z "$result" ]; then
+            echo '{"score": 0.0, "details": "no number in out.txt", "checks": [{"name": "has-number", "passed": false, "message": "no numeric result"}]}'
+            exit 0
+          fi
+          if [ "$result" -ge 1 ] && [ "$result" -le 20 ]; then
+            echo "{\"score\": 1.0, \"details\": \"d20 result $result is valid\", \"checks\": [{\"name\": \"d20-range\", \"passed\": true, \"message\": \"got $result\"}]}"
+          else
+            echo "{\"score\": 0.0, \"details\": \"result $result out of range 1-20\", \"checks\": [{\"name\": \"d20-range\", \"passed\": false, \"message\": \"got $result\"}]}"
+          fi
+        weight: 1.0
+
+  - name: test-compare-products
+    instruction: |
+      Use the compare-products skill to compare Notion vs Obsidian.
+      Save the full output (comparison table, comments, and summary) to
+      comparison.md in the current working directory.
+
+    graders:
+      - type: deterministic
+        run: |
+          if ! test -f comparison.md; then
+            echo '{"score": 0.0, "details": "comparison.md not found", "checks": [{"name": "file-exists", "passed": false, "message": "missing comparison.md"}]}'
+            exit 0
+          fi
+          score=0
+          checks=""
+          add_check() {
+            if [ -n "$checks" ]; then checks="$checks,"; fi
+            checks="$checks{\"name\":\"$1\",\"passed\":$2,\"message\":\"$3\"}"
+            if [ "$2" = "true" ]; then score=$((score + 1)); fi
+          }
+          add_check "file-exists" true "comparison.md found"
+          if grep -q '|' comparison.md; then
+            add_check "has-table" true "markdown table delimiter found"
+          else
+            add_check "has-table" false "no markdown table"
+          fi
+          if grep -qi 'notion' comparison.md && grep -qi 'obsidian' comparison.md; then
+            add_check "product-names" true "both product names present"
+          else
+            add_check "product-names" false "missing Notion or Obsidian"
+          fi
+          if grep -qi 'puntuación\|puntuacion\|rating\|/10' comparison.md; then
+            add_check "has-rating" true "rating row or score found"
+          else
+            add_check "has-rating" false "no rating/score found"
+          fi
+          final=$(awk "BEGIN {printf \"%.2f\", $score / 4}")
+          echo "{\"score\": $final, \"details\": \"passed $score/4 checks\", \"checks\": [$checks]}"
+        weight: 1.0

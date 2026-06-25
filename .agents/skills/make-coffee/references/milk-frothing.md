@@ -1,7 +1,7 @@
-# Milk Frothing
+# Espumado de leche
 
-Steps:
+Pasos:
 
-1. Steam the milk.
-2. Create microfoam.
-3. Pour slowly into the coffee.
+1. Calentar la leche al vapor.
+2. Crear microespuma.
+3. Verter lentamente sobre el café.

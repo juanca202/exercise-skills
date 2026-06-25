@@ -1,0 +1,29 @@
+# Verified skillgrade eval for the system-info skill.
+# Copy this next to a skill's SKILL.md (as eval.yaml) and run:
+#   skillgrade --eval=show-system-info --agent=claude --provider=local --trials=1
+# Verified PASS (1.00) on 2026-06-24 with claude CLI + local provider, no Docker.
+
+version: "1"
+
+defaults:
+  agent: claude          # uses the logged-in `claude` CLI (subscription) — no ANTHROPIC_API_KEY needed
+  provider: local        # local, not docker (Docker is not required for this path)
+  trials: 1
+  timeout: 180           # skillgrade kills the agent after this many seconds (macOS has no `timeout` cmd)
+
+tasks:
+  - name: show-system-info
+    instruction: |
+      Use the system-info skill to display basic operating system information
+      (OS name, hostname, current user). Save the full text output to a file
+      named out.txt in the current working directory.
+
+    graders:
+      - type: deterministic
+        run: |
+          if grep -q "Sistema operativo" out.txt 2>/dev/null; then
+            echo '{"score": 1.0, "details": "out.txt contains OS info", "checks": [{"name": "os-line", "passed": true, "message": "found Sistema operativo"}]}'
+          else
+            echo '{"score": 0.0, "details": "out.txt missing OS info", "checks": [{"name": "os-line", "passed": false, "message": "no Sistema operativo line"}]}'
+          fi
+        weight: 1.0

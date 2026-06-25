@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-06-25T01:31:28.157Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 2,
+      "eval_name": "Preparación de latte con proporción de leche y sección de contexto dinámico",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 41716,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "He intentado leer el archivo de referencia `references/latte.md`, pero está fuera del directorio de trabajo permitido en esta sesión (`.agents`) y el sistema bloqueó el acceso. Aun así, aquí tienes una guía completa.\n\n## Proporción correcta para un latte\n\nLa regla clásica de un **café latte** es:\n\n| Componente | Proporción | Cantidad típica |\n|---|---|---|\n| Espresso | **1 parte** | 1 shot (≈30 ml) o doble (≈60 ml) |\n| Leche vaporizada | **3 partes** | ≈180–200 ml |\n| Espuma (microespuma) | capa fina | ≈1 cm en la superficie |\n\nLa proporción habitual es **1:3 (espresso:leche)**, con una capa delgada de microespuma encima (no espuma gruesa y seca como en el cappuccino, que es más bien 1:1:1). En una taza de ~240 ml: 1 doble espresso + leche vaporizada hasta llenar.\n\n## Cómo hacer un latte clásico con latte art\n\n**1. Extrae el espresso**\n- Saca un espresso doble fresco directamente en la taza fría/templada donde servirás. Hazlo justo antes de texturizar la leche para que la crema esté intacta.\n\n**2. Vaporiza (textura) la leche** — el paso clave del arte\n- Usa leche fría entera (la grasa da mejor textura y dulzor; un jarro metálico frío ayuda).\n- Llena la jarra hasta poco menos de la base del pico.\n- **Fase de aireación (stretching):** apenas sumerge la punta de la lanza bajo la superficie los primeros 2–3 segundos; debes oír un \"tssss\" suave que incorpora aire fino. Buscas microespuma sedosa, no burbujas grandes.\n- **Fase de calentamiento (rolling):** hunde un poco más la lanza para crear un remolino que arrastra las burbujas grandes y homogeniza. Calienta hasta ~60–65 °C (la jarra apenas se vuelve incómoda al tacto, no quema).\n- Golpea suavemente la jarra sobre la mesa y gírala en círculos para eliminar burbujas y dejar una textura brillante tipo \"pintura\".\n\n**3. Vertido (pouring) para el arte**\n- Empieza vertiendo desde **alto** (unos 8–10 cm) y en el centro, para que la leche se hunda bajo la crema y mezcle sin marcar dibujo todavía. Llena hasta ~⅔.\n- Cuando la taza esté casi llena, **baja el pico cerca de la superficie** y aumenta el flujo: aquí aparece la microespuma blanca en la superficie.\n- **Corazón:** mantén el punto de vertido fijo cerca; cuando se forme un círculo blanco, levanta y \"corta\" tirando una línea fina hacia adelante atravesando el círculo. → corazón.\n- **Roseta (hoja):** una vez formado el punto blanco, mueve la jarra suavemente de lado a lado (zigzag) mientras retrocedes lentamente; al final, levanta y corta una línea recta por el centro. → hoja/roseta.\n\n**Errores comunes**\n- Espuma con burbujas grandes → airaste demasiado tiempo o muy profundo.\n- No aparece el dibujo → vertiste siempre desde muy alto, o la leche estaba muy líquida/muy espesa.\n- Leche quemada y amarga → pasaste de ~65 °C.\n\n**Consejo:** la textura de la leche importa más que la mano. Microespuma brillante y uniforme = arte fácil.\n\n**Archivos de contexto dinámico**\n- (Ninguno: no se pudo cargar `references/latte.md` por restricciones de acceso en esta sesión.)",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta describe una proporción leche-espresso para un latte",
+          "pass": true,
+          "reasoning": "The output explicitly states the latte ratio as 1:3 (espresso:milk) in both a table and prose, describing 1 part espresso to 3 parts steamed milk, which directly satisfies the assertion that it describes a milk-to-espresso proportion for a latte."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta explica cómo hacer un latte clásico o crear latte art",
+          "pass": true,
+          "reasoning": "The output provides a detailed explanation of how to make a classic latte (proportions 1:3, espresso extraction, milk steaming, temperature) and also explains how to create latte art (pouring technique, forming a heart and rosetta). This fully satisfies the assertion."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output contains a section with the bolded heading 'Archivos de contexto dinámico' near the end, followed by a note that no dynamic context file could be loaded. This satisfies the assertion."
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/latte.md",
+          "pass": true,
+          "reasoning": "The 'Archivos de contexto dinámico' section explicitly mentions references/latte.md, stating it could not be loaded due to access restrictions. The assertion only requires that the section lists references/latte.md, which it does."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 41716,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

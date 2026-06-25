@@ -1,14 +1,14 @@
 # Espresso
 
-Ingredients:
+Ingredientes:
 
-- Coffee beans
-- Water
+- Granos de café
+- Agua
 
-Steps:
+Pasos:
 
-1. Grind coffee.
-2. Tamp coffee.
-3. Extract espresso.
+1. Moler el café.
+2. Compactar el café.
+3. Extraer el espresso.
 
-If the user asks about milk preparation, read `references/milk-frothing.md`.
+Si el usuario pregunta sobre la preparación de la leche, leer `references/milk-frothing.md`.

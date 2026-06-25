@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-06-25T03:33:12.540Z",
+  "model": "opus",
+  "skill_name": "compare-products",
+  "cases": [
+    {
+      "eval_id": 2,
+      "eval_name": "Slash command format with product names in args",
+      "status": "error",
+      "error_message": "Invalid judge output: expected JSON with { pass, reasoning }, got: { \"pass\": false, \"reasoning\": \"While the table contains rows labeled Precio, Pantalla, Procesador, C",
+      "pass_rate": 0,
+      "assertions": []
+    }
+  ],
+  "overall_pass_rate": 0,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 0,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

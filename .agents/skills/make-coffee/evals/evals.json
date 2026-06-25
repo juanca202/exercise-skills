@@ -1,0 +1,96 @@
+{
+  "skill_name": "make-coffee",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Guía de preparación de espresso con sección de contexto dinámico",
+      "prompt": "¿Cómo saco un buen espresso en casa? Mis extracciones salen muy amargas y aguadas.",
+      "expected_output": "Guía para extraer un espresso de calidad, abordando amargor y extracción aguada, terminando con una sección de archivos de contexto dinámico que liste la referencia de espresso",
+      "files": [
+        "references/espresso.md"
+      ],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre preparar o extraer un espresso",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta aborda causas de espresso amargo o aguado (p. ej., molienda, tiempo de extracción, dosis o temperatura del agua)",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/espresso.md",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-5",
+          "text": "La sección 'Archivos de contexto dinámico' no lista references/latte.md",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Preparación de latte con proporción de leche y sección de contexto dinámico",
+      "prompt": "¿Cuál es la proporción correcta de leche y espresso para un latte, y puedes explicarme cómo hacer un latte clásico con latte art?",
+      "expected_output": "Guía sobre la proporción leche-espresso para un latte y técnica de latte art, terminando con una sección de archivos de contexto dinámico que liste la referencia de latte",
+      "files": [
+        "references/latte.md"
+      ],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta describe una proporción leche-espresso para un latte",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta explica cómo hacer un latte clásico o crear latte art",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/latte.md",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Solicitud de git no relacionada no debe activar el skill",
+      "prompt": "¿Cómo hago rebase de mi rama feature sobre main sin conflictos?",
+      "expected_output": "Guía de rebase en git sin comportamiento del skill de café ni sección de archivos de contexto dinámico",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre rebase de una rama feature sobre main",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta no incluye una sección titulada 'Archivos de contexto dinámico'",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta no hace referencia a preparación de espresso o latte",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

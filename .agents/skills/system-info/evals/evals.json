@@ -1,0 +1,87 @@
+{
+  "skill_name": "system-info",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Mostrar información del sistema en macOS",
+      "prompt": "Muéstrame la información básica de mi sistema. Estoy trabajando en una MacBook con macOS.",
+      "expected_output": "La respuesta determina que el SO es macOS y propone ejecutar el script bash desde el directorio del skill, haciendo cd a esa carpeta antes de ejecutarlo.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "detects-macos",
+          "text": "La respuesta identifica que el sistema operativo es macOS (o Unix-like) para elegir el script adecuado",
+          "type": "boolean"
+        },
+        {
+          "id": "includes-bash-command",
+          "text": "La respuesta incluye un bloque de código con el comando 'bash ./scripts/system-info.sh'",
+          "type": "boolean"
+        },
+        {
+          "id": "cd-to-skill-dir",
+          "text": "La respuesta indica hacer cd al directorio del skill (la carpeta que contiene SKILL.md) antes de ejecutar el script",
+          "type": "boolean"
+        },
+        {
+          "id": "no-powershell",
+          "text": "La respuesta no propone ejecutar el script de PowerShell (.ps1) para este caso de macOS",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Mostrar información del sistema en Windows",
+      "prompt": "Necesito ver la versión del SO, el nombre de host y el usuario actual de mi máquina. Uso Windows 11.",
+      "expected_output": "La respuesta determina que el SO es Windows y propone ejecutar el script de PowerShell desde el directorio del skill.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "detects-windows",
+          "text": "La respuesta identifica que el sistema operativo es Windows para elegir el script adecuado",
+          "type": "boolean"
+        },
+        {
+          "id": "includes-powershell-command",
+          "text": "La respuesta incluye un comando que ejecuta powershell con el archivo './scripts/system-info.ps1'",
+          "type": "boolean"
+        },
+        {
+          "id": "execution-policy-bypass",
+          "text": "El comando de PowerShell incluye el parámetro -ExecutionPolicy Bypass",
+          "type": "boolean"
+        },
+        {
+          "id": "no-bash",
+          "text": "La respuesta no propone ejecutar el script bash (.sh) para este caso de Windows",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "SO no especificado por el usuario",
+      "prompt": "Quiero ver los detalles básicos de mi sistema operativo: versión, hostname y usuario.",
+      "expected_output": "La respuesta primero determina el sistema operativo (preguntando o detectándolo) antes de elegir y ejecutar el script correspondiente desde el directorio del skill.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "determines-os-first",
+          "text": "La respuesta determina el sistema operativo (lo detecta o lo pregunta) antes de seleccionar el script a ejecutar",
+          "type": "boolean"
+        },
+        {
+          "id": "mentions-both-scripts",
+          "text": "La respuesta hace referencia a las dos opciones de script según el SO (bash para macOS/Linux y powershell para Windows)",
+          "type": "boolean"
+        },
+        {
+          "id": "run-from-skill-dir",
+          "text": "La respuesta indica ejecutar el script desde el directorio del skill que contiene SKILL.md",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

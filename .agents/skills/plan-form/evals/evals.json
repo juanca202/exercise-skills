@@ -1,0 +1,112 @@
+{
+  "skill_name": "plan-form",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Registration form plan with React and Zod",
+      "prompt": "Quiero planificar un formulario de registro de usuarios para mi app en React. Usamos react-hook-form con Zod para validación. Los campos son: nombre completo (texto, obligatorio), email (email, obligatorio), contraseña (password, obligatorio, mínimo 8 caracteres), confirmar contraseña (password, obligatorio, debe coincidir con contraseña), y aceptar términos (checkbox, obligatorio). Al enviar se hace POST a /api/auth/register. Dame el plan antes de implementar.",
+      "expected_output": "A structured implementation plan in Spanish covering all fields, validation rules, architecture with react-hook-form and Zod, submission flow, and ordered implementation steps — without any code implementation",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "The response includes a table or list of all 5 fields: nombre completo, email, contraseña, confirmar contraseña, and aceptar términos",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "The plan mentions the cross-field validation rule that confirmar contraseña must match contraseña",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "The plan references react-hook-form and Zod as the libraries to use",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-4",
+          "text": "The plan includes a submission flow section that references the POST /api/auth/register endpoint",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-5",
+          "text": "The response includes a list of ordered implementation steps (not code, but actionable tasks)",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-6",
+          "text": "The response does not include actual code implementation (no JSX, TypeScript, or function definitions)",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Contact form plan with missing stack info",
+      "prompt": "Need a plan for a contact form on our marketing site. Fields: full name, company email, phone (optional), subject (dropdown: Sales, Support, Partnership), and message (textarea). Form should submit to our CRM via a webhook. Haven't decided on the framework yet.",
+      "expected_output": "The skill should ask for the missing stack/framework information before delivering a full plan, or deliver a plan with clearly marked assumptions about the stack",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "The response either asks the user about the framework/stack or explicitly marks the stack choice as an assumption",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "The response mentions or lists the fields: full name, company email, phone, subject, and message",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "The response acknowledges that phone is optional and treats it differently from required fields",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-4",
+          "text": "The response mentions the webhook submission as the form's send mechanism",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Checkout address form plan with i18n and a11y requirements",
+      "prompt": "Planifica un formulario de dirección de envío para un checkout en Angular. Usamos Reactive Forms y Ngx-Translate para i18n. Campos: calle (texto, obligatorio), número exterior (texto, obligatorio), número interior (texto, opcional), colonia (texto, obligatorio), ciudad (texto, obligatorio), estado (select con lista de estados de México, obligatorio), código postal (numérico 5 dígitos, obligatorio). El formulario debe ser accesible (WCAG 2.1 AA) y soportar español e inglés. Al guardar se llama a PUT /api/orders/{id}/address.",
+      "expected_output": "A comprehensive plan in Spanish covering all 7 address fields, Angular Reactive Forms architecture, Ngx-Translate integration points, WCAG 2.1 AA accessibility requirements, and the PUT endpoint submission flow",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "The plan covers all 7 fields: calle, número exterior, número interior, colonia, ciudad, estado, and código postal",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-2",
+          "text": "The plan includes a section on accessibility (a11y) mentioning WCAG, aria attributes, or keyboard navigation",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-3",
+          "text": "The plan references i18n or internationalization and mentions Ngx-Translate or translation keys",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-4",
+          "text": "The plan specifies the PUT /api/orders/{id}/address endpoint as the submission target",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-5",
+          "text": "The plan includes validation rules for código postal (5 numeric digits)",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-6",
+          "text": "The response is written in Spanish",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-06-25T01:25:37.012Z",
+  "model": "sonnet",
+  "skill_name": "system-info",
+  "cases": [
+    {
+      "eval_id": 1,
+      "eval_name": "Mostrar información del sistema en macOS",
+      "status": "fail",
+      "error_message": null,
+      "pass_rate": 0.25,
+      "durationMs": 16000,
+      "tokens": null,
+      "assertions": [
+        {
+          "id": "detects-macos",
+          "text": "La respuesta identifica que el sistema operativo es macOS (o Unix-like) para elegir el script adecuado",
+          "pass": false,
+          "reasoning": "The output does not identify the operating system as macOS or Unix-like. It only lists the commands that will be run to gather system information, but does not state or identify the current OS type."
+        },
+        {
+          "id": "includes-bash-command",
+          "text": "La respuesta incluye un bloque de código con el comando 'bash ./scripts/system-info.sh'",
+          "pass": false,
+          "reasoning": "The LLM output does not include a code block with the command 'bash ./scripts/system-info.sh'. It only lists the individual commands that the script executes, but never shows the actual script invocation command in a code block."
+        },
+        {
+          "id": "cd-to-skill-dir",
+          "text": "La respuesta indica hacer cd al directorio del skill (la carpeta que contiene SKILL.md) antes de ejecutar el script",
+          "pass": false,
+          "reasoning": "The LLM output makes no mention of changing directories (cd) to the skill directory or the folder containing SKILL.md before executing the script. It only lists the commands to be executed (uname, hostname, whoami, date) and asks for approval."
+        },
+        {
+          "id": "no-powershell",
+          "text": "La respuesta no propone ejecutar el script de PowerShell (.ps1) para este caso de macOS",
+          "pass": true,
+          "reasoning": "The LLM output proposes executing Unix commands (uname, hostname, whoami, date) appropriate for macOS, not a PowerShell (.ps1) script."
+        }
+      ],
+      "comparisonDetail": {
+        "skillDurationMs": 16000,
+        "skillTokens": null,
+        "baselineDurationMs": 17442,
+        "baselineTokens": null,
+        "skillContentScore": 2,
+        "skillStructureScore": 2,
+        "baselineContentScore": 4,
+        "baselineStructureScore": 5,
+        "winner": "baseline"
+      }
+    }
+  ],
+  "overall_pass_rate": 0.25,
+  "type": "comparison",
+  "provider": "claude-cli",
+  "verdict": "DEGRADING",
+  "comparison": {
+    "skillPassRate": 0.25,
+    "baselinePassRate": 0.5,
+    "skillRubricAvg": 2,
+    "baselineRubricAvg": 4.5,
+    "delta": -0.25
+  },
+  "actionItems": {
+    "recommendation": "rewrite",
+    "summary": "The skill actively degrades output relative to baseline (-2.5 delta, 25% pass rate): the model ignores the OS detection step, skips the cd instruction, and never invokes the script — instead listing raw commands directly. The skill instructions are not being followed at all.",
+    "weaknesses": [
+      "The model never executes 'bash ./scripts/system-info.sh' — the core instruction is completely ignored (eval #1, assertion 2 FAIL)",
+      "The model skips the OS identification step entirely — no mention of macOS/Unix-like detection before choosing a script (eval #1, assertion 1 FAIL)",
+      "The model ignores the 'cd to skill directory' instruction and never produces the required cd step (eval #1, assertion 3 FAIL)",
+      "The skill's instructions are passive/descriptive ('Determinar el sistema operativo', 'Ejecutar los comandos') rather than imperative directives — the model treats them as background context rather than steps to follow"
+    ],
+    "strengths": [
+      "The skill correctly identifies the two platform branches (macOS/Linux vs Windows) and provides the right commands for each",
+      "The description/trigger section is well-scoped and would activate on the right prompts"
+    ],
+    "suggestedFocus": "Rewrite the body as a numbered step list with imperative verbs: '1. Identify the OS. 2. cd to the directory containing this SKILL.md. 3. Run bash ./scripts/system-info.sh (macOS/Linux) or powershell ... (Windows).' — explicit ordered steps are far more likely to be executed than prose paragraphs."
+  }
+}

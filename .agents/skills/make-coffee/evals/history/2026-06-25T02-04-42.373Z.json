@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-06-25T02:04:42.373Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 2,
+      "eval_name": "Preparación de latte con proporción de leche y sección de contexto dinámico",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 23659,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "¡Con gusto! Aquí tienes la guía para un latte clásico con latte art.\n\n## Proporción correcta\n\nUn latte clásico sigue una proporción aproximada de **1 parte de espresso por 3 partes de leche al vapor**, terminado con una fina capa de microespuma:\n\n- **Espresso:** 1 shot (~30 ml) — o doble shot (~60 ml) para más cuerpo.\n- **Leche al vapor:** ~180–200 ml.\n- **Microespuma:** una capa delgada (~1 cm) en la superficie.\n\n## Cómo hacer un latte clásico con latte art\n\n**1. Prepara el espresso**\nExtrae un shot fresco directamente en la taza. La base debe estar caliente y con una buena *crema* para que el arte contraste.\n\n**2. Espuma la leche** (según `milk-frothing.md`)\n1. Calienta la leche al vapor (idealmente 60–65 °C, sin hervir).\n2. Crea **microespuma**: textura sedosa y brillante, con burbujas tan finas que casi no se ven. Gira la jarra para integrar la espuma con la leche líquida.\n3. Golpea suavemente la jarra contra la mesa y haz un movimiento circular para pulir la textura.\n\n**3. Vierte para crear el arte**\n1. Empieza vertiendo **desde alto** y en el centro, para que la leche se hunda bajo la crema.\n2. Cuando la taza esté ~½ llena, **acerca la jarra a la superficie** y aumenta el flujo: aquí emerge la microespuma y empieza a dibujarse.\n3. Para un **corazón**: vierte en un punto fijo hasta formar un círculo blanco y, al final, levanta la jarra y corta atravesando el círculo en línea recta.\n4. Para una **roseta**: mueve la jarra suavemente de lado a lado mientras retrocedes, y termina cortando hacia adelante.\n\n**Claves del éxito:** microespuma bien integrada (sin burbujas grandes), espresso con crema fresca, y un vertido constante. La práctica del pulso y la altura de la jarra es lo que más mejora el resultado.\n\n**Archivos de contexto dinámico**\n- `references/latte.md`\n- `references/milk-frothing.md`",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta describe una proporción leche-espresso para un latte",
+          "pass": true,
+          "reasoning": "The assertion requires that the response describe a milk-to-espresso proportion for a latte. The output explicitly states '1 parte de espresso por 3 partes de leche al vapor' and provides specific quantities (1 shot ~30ml espresso, ~180-200ml steamed milk), clearly describing the proportion."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta explica cómo hacer un latte clásico o crear latte art",
+          "pass": true,
+          "reasoning": "The output explains in detail how to make a classic latte (proportions, espresso preparation, milk steaming) and how to create latte art (heart and rosetta techniques, pouring method), satisfying the assertion."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output contains a section with the heading 'Archivos de contexto dinámico' (formatted in bold as **Archivos de contexto dinámico**), followed by a list of context files (references/latte.md and references/milk-frothing.md). This satisfies the assertion."
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/latte.md",
+          "pass": true,
+          "reasoning": "The output contains a section titled 'Archivos de contexto dinámico' that lists two files, including 'references/latte.md' explicitly. The assertion is satisfied."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 23659,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

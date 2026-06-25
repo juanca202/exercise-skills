@@ -1,0 +1,92 @@
+{
+  "skill_name": "compare-products",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Direct vs comparison with both products named",
+      "prompt": "Compara Notion vs Obsidian para gestión de notas personales",
+      "expected_output": "A comparative table with Notion and Obsidian as columns, a score row based on reviews, key specs like price and features, highlighted comments from each product, and a summary section.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-table-exists",
+          "text": "The response includes a markdown table with Notion and Obsidian as column headers",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-score-row",
+          "text": "The comparison table includes a row for scoring (e.g. 'Puntuación' or 'Score') with values out of 10 for both products",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-price-row",
+          "text": "The comparison table includes a row for price (e.g. 'Precio' or 'Price')",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-comments-section",
+          "text": "The response includes a section with user comments or reviews for at least one of the two products",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-summary-section",
+          "text": "The response includes a summary section with bullet points comparing advantages or gaps between the two products",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Slash command format with product names in args",
+      "prompt": "/compare-products iPhone 15 vs Samsung Galaxy S24",
+      "expected_output": "A structured product comparison between iPhone 15 and Samsung Galaxy S24 including a markdown table with specs as rows and products as columns, review scores, user comments, and a brief summary.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-iphone-column",
+          "text": "The response includes 'iPhone 15' as a column header or clearly labeled product in the comparison",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-samsung-column",
+          "text": "The response includes 'Samsung Galaxy S24' (or 'Samsung S24') as a column header or clearly labeled product in the comparison",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-specs-in-rows",
+          "text": "The comparison table has at least 3 specification rows beyond the score row (e.g. price, storage, camera, battery, or similar)",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-score-out-of-10",
+          "text": "The score for each product is expressed on a 0–10 scale (e.g. '8.5/10' or '7.2/10')",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-sources-mentioned",
+          "text": "The response mentions or cites at least one external source (URL, site name, or review platform) for either product",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Missing second product triggers clarification",
+      "prompt": "Quiero comparar HubSpot con algo para gestión de clientes, ¿qué me recomiendas?",
+      "expected_output": "The skill should not start a full comparison yet. Instead, it should ask the user to specify the second product (Producto 2) before proceeding, since only one product was clearly identified.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "assert-asks-for-second-product",
+          "text": "The response asks the user to specify or confirm the second product to compare against HubSpot",
+          "type": "boolean"
+        },
+        {
+          "id": "assert-no-premature-table",
+          "text": "The response does NOT include a full comparison table or comparison data before both products are confirmed",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

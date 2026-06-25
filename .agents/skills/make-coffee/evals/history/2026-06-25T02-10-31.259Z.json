@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-06-25T02:10:31.259Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 1,
+      "eval_name": "Guía de preparación de espresso con sección de contexto dinámico",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 20359,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "¡Buena pregunta! Un espresso **amargo y aguado a la vez** es una señal clásica de **extracción despareja** — normalmente una combinación de molienda inadecuada y mala distribución/compactación. Vamos por partes.\n\n## Los pasos base\n\n1. **Moler el café** — fresco, justo antes de extraer.\n2. **Compactar (tamp)** — nivelado y con presión uniforme.\n3. **Extraer el espresso**.\n\n## Por qué sale amargo *y* aguado\n\nEsa mezcla suele venir de **canalización (channeling)**: el agua encuentra grietas en el pastel de café y se va por ahí. Por esos canales sobre-extrae (amargor) y el resto queda sub-extraído y diluido (aguado).\n\n### Cómo corregirlo\n\n**Molienda**\n- Si sale aguado y rápido → muele **más fino**.\n- Si además amarga → probablemente hay canalización; afina la molienda *y* la distribución.\n- Apunta a que la extracción tarde **~25–30 s**.\n\n**Proporción (clave para que no salga aguado)**\n- Ratio estándar: **1:2** → ~18 g de café para ~36 g de espresso en taza.\n- Pesa la dosis de entrada y el líquido de salida; \"a ojo\" es la causa #1 de tazas aguadas.\n\n**Distribución y tamp**\n- Nivela el café antes de compactar (un golpecito o distribuidor).\n- Tamp **nivelado y firme**; si queda chueco, el agua se va por el lado bajo → canaliza → amargo + aguado.\n\n**Temperatura y frescura**\n- Agua a **90–96 °C**. Demasiado caliente acentúa el amargor.\n- Granos frescos (ideal 1–4 semanas desde tostado).\n\n### Diagnóstico rápido\n\n| Síntoma | Causa probable | Ajuste |\n|---|---|---|\n| Aguado + sale rápido | Molienda gruesa / poca dosis | Más fino, sube dosis |\n| Amargo + sale lento | Sobre-extracción | Más grueso, baja Temp |\n| Amargo **y** aguado | Canalización | Mejor distribución + tamp nivelado |\n\nEmpieza fijando la **proporción 1:2 por peso** y un **tamp nivelado**; con eso solo, la mayoría de las tazas amargas-y-aguadas se arreglan. Luego afina la molienda para clavar los 25–30 s.\n\n¿Quieres que entremos en la preparación de la leche para un latte o cortado?\n\n**Archivos de contexto dinámico**\n- `references/espresso.md`",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre preparar o extraer un espresso",
+          "pass": true,
+          "reasoning": "The output provides extensive guidance on preparing and extracting an espresso, including base steps (grinding, tamping, extracting), troubleshooting bitter/watery shots, grind adjustments, ratio (1:2), distribution/tamping technique, temperature (90-96°C), and extraction time (25-30s). This clearly satisfies the assertion."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta aborda causas de espresso amargo o aguado (p. ej., molienda, tiempo de extracción, dosis o temperatura del agua)",
+          "pass": true,
+          "reasoning": "The assertion requires that the response addresses causes of bitter or watery espresso, citing examples like grind, extraction time, dose, or water temperature. The output thoroughly covers all of these: grind ('muele más fino', 'afina la molienda'), extraction time ('~25–30 s'), dose ('1:2 ratio, ~18 g'), and water temperature ('90–96 °C'), plus channeling as the root cause. All required factors are addressed."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output contains a section with the heading 'Archivos de contexto dinámico' in bold at the end, listing references/espresso.md. The assertion only requires that a section with this header be included, which it is."
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/espresso.md",
+          "pass": true,
+          "reasoning": "The output contains a section titled 'Archivos de contexto dinámico' which lists the item `references/espresso.md` as a bullet point, satisfying the assertion."
+        },
+        {
+          "id": "assert-5",
+          "text": "La sección 'Archivos de contexto dinámico' no lista references/latte.md",
+          "pass": true,
+          "reasoning": "The 'Archivos de contexto dinámico' section lists only references/espresso.md and does not include references/latte.md, satisfying the assertion."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 20359,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

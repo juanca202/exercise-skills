@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-06-25T01:26:02.735Z",
+  "model": "sonnet",
+  "skill_name": "system-info",
+  "cases": [
+    {
+      "eval_id": 2,
+      "eval_name": "Mostrar información del sistema en Windows",
+      "status": "fail",
+      "error_message": null,
+      "pass_rate": 0,
+      "durationMs": 34930,
+      "tokens": null,
+      "assertions": [
+        {
+          "id": "detects-windows",
+          "text": "La respuesta identifica que el sistema operativo es Windows para elegir el script adecuado",
+          "pass": false,
+          "reasoning": "The LLM output explicitly identifies the operating system as Darwin (macOS), not Windows. In fact, it specifically notes that despite the user mentioning Windows 11, the detected system is macOS, and it ran a bash script instead of a PowerShell script."
+        },
+        {
+          "id": "includes-powershell-command",
+          "text": "La respuesta incluye un comando que ejecuta powershell con el archivo './scripts/system-info.ps1'",
+          "pass": false,
+          "reasoning": "The LLM output does not include any command that executes PowerShell with './scripts/system-info.ps1'. Instead, it mentions that a bash script was run instead of the PowerShell script, and explicitly states the PowerShell script was NOT used because the detected OS is macOS/Darwin."
+        },
+        {
+          "id": "execution-policy-bypass",
+          "text": "El comando de PowerShell incluye el parámetro -ExecutionPolicy Bypass",
+          "pass": false,
+          "reasoning": "The LLM output contains no PowerShell command at all. It executed a bash script instead (detecting macOS/Darwin), so there is no PowerShell command with -ExecutionPolicy Bypass present in the output."
+        },
+        {
+          "id": "no-bash",
+          "text": "La respuesta no propone ejecutar el script bash (.sh) para este caso de Windows",
+          "pass": false,
+          "reasoning": "The LLM output explicitly states that the bash script was executed ('se ejecutó el script de bash') even though the context was Windows 11. The response acknowledges a detected macOS environment and ran the bash script instead of PowerShell, directly contradicting the assertion that it should not propose executing the bash script for a Windows case."
+        }
+      ],
+      "comparisonDetail": {
+        "skillDurationMs": 34930,
+        "skillTokens": null,
+        "baselineDurationMs": 16114,
+        "baselineTokens": null,
+        "skillContentScore": 5,
+        "skillStructureScore": 5,
+        "baselineContentScore": 3,
+        "baselineStructureScore": 3,
+        "winner": "skill"
+      }
+    }
+  ],
+  "overall_pass_rate": 0,
+  "type": "comparison",
+  "provider": "claude-cli",
+  "verdict": "EMERGING",
+  "comparison": {
+    "skillPassRate": 0,
+    "baselinePassRate": 0.25,
+    "skillRubricAvg": 5,
+    "baselineRubricAvg": 3,
+    "delta": -0.25
+  },
+  "actionItems": {
+    "recommendation": "improve",
+    "summary": "The skill produces better-quality output (rubric +2.0) but fails all OS-detection assertions: when the user specifies Windows, the skill ignores that and runs the script for the detected host OS (macOS). The skill's OS-detection logic must prioritize the user's stated OS over the actual runtime environment.",
+    "weaknesses": [
+      "OS detection uses the actual host environment (Darwin/macOS) instead of the OS the user explicitly stated (Windows 11) — all 4 assertions in case #2 failed because of this single flaw.",
+      "The skill runs the bash script even when the user context clearly indicates Windows, directly contradicting the expected behavior.",
+      "No assertion passed (0%), meaning the core behavioral contract of the skill is unmet despite high rubric scores."
+    ],
+    "strengths": [
+      "Rubric scores are high (5/5 content and structure vs 3/3 baseline), showing the skill improves response quality and formatting.",
+      "The skill's instructions are clear and cover both OS branches with correct commands and flags.",
+      "The skill correctly specifies -ExecutionPolicy Bypass for PowerShell, which is the right approach for script execution on Windows."
+    ],
+    "suggestedFocus": "Rewrite the OS-detection instruction to explicitly say: 'If the user states or implies a specific OS (e.g. Windows 11), use that OS — do NOT override it with the detected host environment.'"
+  }
+}

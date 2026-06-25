@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-06-25T02:40:58.863Z",
+  "model": "sonnet",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 1,
+      "eval_name": "Guía de preparación de espresso con sección de contexto dinámico",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 17295,
+      "tokens": null,
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre preparar o extraer un espresso",
+          "pass": true,
+          "reasoning": "The output provides detailed guidance on preparing and extracting espresso, covering grind size, tamping technique, extraction time, water temperature, and dose — all directly relevant to espresso preparation and extraction."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta aborda causas de espresso amargo o aguado (p. ej., molienda, tiempo de extracción, dosis o temperatura del agua)",
+          "pass": true,
+          "reasoning": "The response explicitly addresses causes of bitter or watery espresso, including grind size (too fine causes bitter, too coarse causes watery), extraction time (25-30 seconds target), tamping pressure and consistency, water temperature (90-96°C), and dose (18-20g). All four factors mentioned in the assertion (grind, extraction time, dose, water temperature) are covered."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta incluye una sección con el encabezado 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output contains a section with the exact heading 'Archivos de contexto dinámico' at the bottom of the response."
+        },
+        {
+          "id": "assert-4",
+          "text": "La sección 'Archivos de contexto dinámico' lista references/espresso.md",
+          "pass": true,
+          "reasoning": "The output's 'Archivos de contexto dinámico' section lists 'skills/make-coffee/references/espresso.md', which contains 'references/espresso.md' as a path component."
+        },
+        {
+          "id": "assert-5",
+          "text": "La sección 'Archivos de contexto dinámico' no lista references/latte.md",
+          "pass": true,
+          "reasoning": "The 'Archivos de contexto dinámico' section only lists 'skills/make-coffee/references/espresso.md' and does not include 'references/latte.md'."
+        }
+      ],
+      "comparisonDetail": {
+        "skillDurationMs": 17295,
+        "skillTokens": null,
+        "baselineDurationMs": 42243,
+        "baselineTokens": null,
+        "skillContentScore": 4,
+        "skillStructureScore": 4,
+        "baselineContentScore": 5,
+        "baselineStructureScore": 5,
+        "winner": "baseline"
+      }
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "comparison",
+  "provider": "claude-cli",
+  "verdict": "MARGINAL",
+  "comparison": {
+    "skillPassRate": 1,
+    "baselinePassRate": 1,
+    "skillRubricAvg": 4,
+    "baselineRubricAvg": 5,
+    "delta": 0
+  },
+  "actionItems": {
+    "recommendation": "improve",
+    "summary": "The skill passes all content assertions (100%) but consistently scores below baseline on rubric quality (4.0 vs 5.0), with baseline winning the only evaluated case. The mandatory 'Archivos de contexto dinámico' section appears to be adding boilerplate that clutters responses and drags down structure scores.",
+    "weaknesses": [
+      "The 'Archivos de contexto dinámico' section instruction forces a trailing list in every response that the baseline omits — this likely explains the full -1.0 delta, since content is correct but structure suffers from added noise.",
+      "Only one eval case was run, so the delta is drawn from a single data point; the result is directionally clear but statistically thin.",
+      "The baseline scored a perfect 5/5 on both content and structure without any skill guidance, suggesting the skill's net effect is negative in its current form."
+    ],
+    "strengths": [
+      "All 5 assertions passed (100%), confirming the skill correctly triggers on coffee-related prompts and reads the appropriate reference files.",
+      "Language-mirroring instruction ('responde en el idioma del usuario') is a clean, low-overhead addition that adds value without hurting quality.",
+      "Reference file routing logic (espresso.md, latte.md) is clear and specific, which explains the perfect assertion pass rate."
+    ],
+    "suggestedFocus": "Remove the 'Archivos de contexto dinámico' section requirement entirely — it adds structural noise that the evaluator penalizes, and it provides no user-facing value that justifies the score drop."
+  }
+}

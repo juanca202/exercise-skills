@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-06-25T01:22:32.688Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 2,
+      "eval_name": "Latte preparation with milk ratio and dynamic context section",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 30057,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "I attempted to open `references/latte.md` (the file this skill points to for latte questions), but it sits outside the session's allowed working directory, so the read was blocked. Here's a complete answer from standard barista practice in the meantime.\n\n## Milk-to-espresso ratio for a latte\n\nA classic latte is roughly **1 part espresso to 3–4 parts steamed milk**, finished with a thin (~1 cm) layer of microfoam.\n\n- **Espresso:** 1 double shot (~36 ml / 2 oz)\n- **Steamed milk:** ~150–180 ml (5–6 oz)\n- **Foam:** a thin cap, not the thick foam of a cappuccino (a cappuccino is closer to 1:1:1 espresso/milk/foam)\n\nSo a typical 8 oz latte ≈ 1/6 espresso, the rest milk + a little microfoam.\n\n## Making a classic latte with latte art\n\n**1. Pull the espresso**\n- Grind ~18 g into the portafilter, distribute and tamp level.\n- Pull a double shot (~25–30 sec) directly into your serving cup.\n\n**2. Steam the milk (the key to latte art)**\n- Use cold whole milk (more fat + protein = smoother microfoam) filled to ~1/3 of the pitcher.\n- **Stretching phase:** tip the steam wand just below the surface so you hear a gentle \"tsk-tsk\" — this introduces air. Do this only for the first few seconds, until the milk warms slightly.\n- **Texturing phase:** submerge the tip a bit deeper and angle to create a whirlpool that spins the milk, breaking big bubbles into fine microfoam.\n- Stop at ~60–65 °C (140–150 °F) — too hot scalds the milk and kills the sweetness.\n- Wipe the wand, then **groom**: tap the pitcher on the counter to pop large bubbles and swirl until the milk looks glossy, like wet paint.\n\n**3. Pour the art**\n- Start pouring from ~5–8 cm high into the center, letting milk slide under the crema (this keeps foam from surfacing too early).\n- As the cup fills past half, **lower the pitcher close to the surface** and increase flow — the white microfoam now floats on top.\n- **Heart:** pour a steady circle in the center, then cut straight through it toward the far edge in one quick motion.\n- **Rosetta:** wiggle the pitcher side-to-side to lay down zig-zag layers as you draw back, then cut through to finish the stem.\n\n**Common fixes**\n- *No definition in the art* → milk is too foamy/stiff; aim for thinner microfoam and pour closer to the surface.\n- *Art sinks or no white shows* → you started pouring too low too early; begin higher to mix, finish low to float.\n\nIf you'd like, grant read access to that references folder (or tell me to run from the repo root) and I'll align this answer with the team's `latte.md` exactly.\n\n**Archivos de contexto dinámico**\n- (ninguno — no se pudo leer `references/latte.md`; acceso bloqueado)",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "Response describes a milk-to-espresso ratio for a latte",
+          "pass": true,
+          "reasoning": "The output explicitly describes a milk-to-espresso ratio for a latte, stating '1 part espresso to 3–4 parts steamed milk' and providing specific quantities (1 double shot ~36 ml espresso to ~150–180 ml steamed milk), which directly satisfies the assertion."
+        },
+        {
+          "id": "assert-2",
+          "text": "Response explains how to make a classic latte or create latte art",
+          "pass": true,
+          "reasoning": "The output provides a detailed explanation of how to make a classic latte (milk-to-espresso ratio, pulling espresso, steaming milk) and how to create latte art (stretching/texturing milk, pouring techniques for heart and rosetta). This directly satisfies the assertion regardless of the noted file-access issue."
+        },
+        {
+          "id": "assert-3",
+          "text": "Response includes a section with the heading 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output contains a section with the bolded heading 'Archivos de contexto dinámico' near the end, followed by a bullet noting no dynamic context files could be read. The heading text matches the assertion exactly."
+        },
+        {
+          "id": "assert-4",
+          "text": "The 'Archivos de contexto dinámico' section lists references/latte.md",
+          "pass": true,
+          "reasoning": "The 'Archivos de contexto dinámico' section explicitly references `references/latte.md`, stating '(ninguno — no se pudo leer `references/latte.md`; acceso bloqueado)'. The assertion only requires that the section lists references/latte.md, which it does, even though the context is that the file could not be read."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 30057,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}

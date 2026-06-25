@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-06-25T01:31:03.290Z",
+  "model": "opus",
+  "skill_name": "make-coffee",
+  "cases": [
+    {
+      "eval_id": 3,
+      "eval_name": "Solicitud de git no relacionada no debe activar el skill",
+      "status": "pass",
+      "error_message": null,
+      "pass_rate": 1,
+      "durationMs": 14726,
+      "tokens": null,
+      "inputTokens": null,
+      "outputTokens": null,
+      "cost": null,
+      "billingMode": "subscription",
+      "output": "Para hacer rebase de tu rama `feature` sobre `main` minimizando conflictos, sigue estos pasos:\n\n## 1. Actualiza `main` primero\n\n```bash\ngit checkout main\ngit pull origin main\n```\n\n## 2. Vuelve a tu rama y haz el rebase\n\n```bash\ngit checkout feature\ngit rebase main\n```\n\n## 3. Si aparecen conflictos\n\nEl rebase se pausa en cada commit conflictivo. Para cada uno:\n\n```bash\n# Edita los archivos en conflicto, luego:\ngit add <archivos-resueltos>\ngit rebase --continue\n```\n\nSi te equivocas o quieres abortar todo:\n\n```bash\ngit rebase --abort\n```\n\n## Consejos para evitar/reducir conflictos\n\n- **Rebasea seguido:** integra `main` en tu rama con frecuencia para no acumular divergencia. Mientras más esperes, más probables y grandes son los conflictos.\n- **Commits pequeños y atómicos:** facilitan resolver conflictos uno por uno.\n- **Activa rerere** para que Git recuerde resoluciones previas:\n  ```bash\n  git config --global rerere.enabled true\n  ```\n- **Usa una herramienta visual** para conflictos:\n  ```bash\n  git mergetool\n  ```\n\n## Al terminar (push)\n\nComo el rebase reescribe el historial, necesitas force-push **seguro**:\n\n```bash\ngit push --force-with-lease origin feature\n```\n\n> ⚠️ Usa `--force-with-lease` en lugar de `--force`: aborta el push si alguien más subió commits a la rama, evitando que sobrescribas su trabajo.\n\n---\n\nNota: no existe una garantía de rebase \"sin conflictos\" si las mismas líneas cambiaron en ambas ramas; la estrategia real es mantener las ramas sincronizadas para que los conflictos sean mínimos. Si quieres, dime qué conflicto específico te aparece y te ayudo a resolverlo.",
+      "assertions": [
+        {
+          "id": "assert-1",
+          "text": "La respuesta ofrece orientación sobre rebase de una rama feature sobre main",
+          "pass": true,
+          "reasoning": "The output provides clear, step-by-step guidance on rebasing a feature branch onto main, including updating main, performing the rebase, resolving conflicts, and force-pushing safely. This directly satisfies the assertion that the response offers guidance on rebasing a feature branch onto main."
+        },
+        {
+          "id": "assert-2",
+          "text": "La respuesta no incluye una sección titulada 'Archivos de contexto dinámico'",
+          "pass": true,
+          "reasoning": "The output is a guide about git rebase in Spanish. It contains no section titled 'Archivos de contexto dinámico' anywhere in the text, so the assertion that no such section is included is satisfied."
+        },
+        {
+          "id": "assert-3",
+          "text": "La respuesta no hace referencia a preparación de espresso o latte",
+          "pass": true,
+          "reasoning": "La respuesta trata exclusivamente sobre git rebase y resolución de conflictos; no menciona café, espresso ni latte en ninguna parte."
+        }
+      ]
+    }
+  ],
+  "overall_pass_rate": 1,
+  "type": "benchmark",
+  "provider": "claude-cli",
+  "totalDurationMs": 14726,
+  "totalInputTokens": null,
+  "totalOutputTokens": null,
+  "scope": "single"
+}
