@@ -1,19 +1,17 @@
 ---
 name: project-health
-description: Analyze the health of a software project. Use when asked to evaluate project quality, testing status, or repository health.
+description: Analizar la salud de un proyecto de software. Usar cuando se pida evaluar la calidad del proyecto, el estado de las pruebas o la salud del repositorio.
 ---
 
-The script is located in the same skill directory under `scripts/project-health.js`.
-
-Execute the script from the skill directory and pass the current working directory (the user's project) as the first argument:
+Ejecuta el script desde el directorio del skill y pasa el directorio de trabajo actual (el proyecto del usuario) como primer argumento:
 
 ```bash
-node scripts/project-health.js "$PWD"
+node ./scripts/project-health.js "$PWD"
 ```
 
-Analyze the JSON output and provide:
+Analiza la salida JSON y proporciona:
 
-1. A health score from 0 to 100.
-2. Strengths.
-3. Risks.
-4. Recommended next actions.
+1. Una puntuación de salud de 0 a 100.
+2. Fortalezas.
+3. Riesgos.
+4. Próximas acciones recomendadas.

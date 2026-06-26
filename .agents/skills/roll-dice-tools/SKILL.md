@@ -7,7 +7,7 @@ description: Tirar dados usando un generador de números aleatorios. Usar cuando
 
 Al iniciar la tirada, usar la **herramienta de to-do** para mostrar las tareas a ejecutar y actualizar su estado a medida que se completen. Crear al menos estas tareas:
 
-1. **Confirmar número de caras** — solo si el usuario no lo indicó; marcar como completada al tener la respuesta.
+1. **Confirmar número de caras** — leer `MEMORY.md`; si hay preferencia guardada o el usuario lo indicó, marcar como completada sin preguntar.
 2. **Ejecutar tirada** — generar el valor aleatorio con el comando correspondiente.
 3. **Generar visualización** — crear la imagen del dado con el resultado.
 
@@ -15,7 +15,15 @@ Marcar cada tarea como `completed` al terminarla y dejar `in_progress` solo en l
 
 ## Número de caras
 
-Si el usuario **no indica** el número de caras (p. ej. no dice d6, d20 ni un número explícito), preguntar mediante la **herramienta de preguntas estructuradas** del cliente (opciones tappables) antes de tirar. Reglas:
+**Antes de cualquier otra acción**, leer el archivo `MEMORY.md` en la raíz del repositorio actual para conocer las preferencias persistentes del usuario. Este paso es **obligatorio** aunque el número de caras parezca obvio o el usuario no lo haya mencionado.
+
+Determinar el número de caras siguiendo este orden de prioridad:
+
+1. Si el usuario lo indicó explícitamente en el mensaje → usar ese valor.
+2. Si en `MEMORY.md` hay una regla sobre el número de caras por defecto → aplicarla **sin preguntar** y marcar la tarea "Confirmar número de caras" como completada directamente.
+3. Solo si ninguna de las dos anteriores aplica → preguntar mediante la **herramienta de preguntas estructuradas** del cliente (opciones tappables).
+
+Reglas para cuando sí hay que preguntar:
 
 - **Una pregunta** con hasta **3 opciones** mutuamente excluyentes, por ejemplo: `d6 (6 caras)` / `d20 (20 caras)` / `d10 (10 caras)`.
 - **Fallback**: si el cliente no expone la herramienta, preguntar en prosa con opciones enumeradas (1, 2, 3…).
