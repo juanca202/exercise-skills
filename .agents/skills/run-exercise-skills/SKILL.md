@@ -14,7 +14,8 @@ This repo is **not an app** — it is a collection of Claude/agent skills under
    executable script. This is the fast, deterministic, no-network path and the
    one you want by default. Driver: `.agents/skills/run-exercise-skills/smoke.sh`.
 2. **Evaluate a skill's agent behavior** — does an agent discover and use the
-   skill correctly. Driver: the `skillgrade` CLI (already installed globally).
+   skill correctly. Driver: `scripts/skillgrade.sh` (wraps the `skillgrade` CLI
+   and loads the repo-root `.env`).
 
 > Paths below are relative to the repo root (`<unit>/`). The driver lives at
 > `.agents/skills/run-exercise-skills/`. Note `.claude/skills` is a **symlink**
@@ -54,10 +55,24 @@ skill in a Claude session (`/make-coffee`, etc.) or with the eval path below.
 
 ## Run (eval path) — drive a skill's agent behavior with skillgrade
 
-`skillgrade` spins up an agent, gives it a task, and grades the result. Run it
-**from inside a skill directory** (the one containing `SKILL.md`), not the repo
-root. It needs an `eval.yaml`; this repo's existing `evals/*.json` files are from
-a different (web) evaluator and skillgrade does **not** read them.
+`skillgrade` spins up an agent, gives it a task, and grades the result. Use the
+repo wrapper so it loads `.env` from the repo root and runs inside the target
+skill directory (the one containing `SKILL.md`). It needs an `eval.yaml`; this
+repo's existing `evals/*.json` files are from a different (web) evaluator and
+skillgrade does **not** read them.
+
+```bash
+# From repo root — <skill-dir> is relative to the repo root:
+bash scripts/skillgrade.sh .agents/skills/<skill-name> [skillgrade args...]
+
+# From inside a skill directory (omit <skill-dir>):
+cd .agents/skills/<skill-name>
+bash ../../../scripts/skillgrade.sh init --force
+```
+
+The wrapper sources `exercise-skills/.env` (e.g. `GEMINI_API_KEY`) and `cd`s
+into the skill before calling `skillgrade`. Without it, `skillgrade` only looks
+for `.env` in the skill directory.
 
 A verified, ready eval lives next to this skill. To reproduce the run that was
 confirmed in this container (PASS, 100%):
@@ -68,11 +83,11 @@ cp -R .agents/skills/system-info /tmp/sg-system-info
 cp .agents/skills/run-exercise-skills/example-eval.yaml /tmp/sg-system-info/eval.yaml
 
 # 2. Run one trial with the local provider + claude CLI (no Docker, no API key):
-cd /tmp/sg-system-info
-skillgrade --eval=show-system-info --agent=claude --provider=local --trials=1 --parallel=1
+bash scripts/skillgrade.sh /tmp/sg-system-info \
+  --eval=show-system-info --agent=claude --provider=local --trials=1 --parallel=1
 
 # 3. Review:
-skillgrade preview          # CLI report
+bash scripts/skillgrade.sh /tmp/sg-system-info preview   # CLI report
 ```
 
 Verified result:
@@ -87,11 +102,11 @@ Reports are written to `$TMPDIR/skillgrade/<skill-name>/results/*.json`.
 To scaffold an eval for a skill that has none:
 
 ```bash
-cd <skill-dir>      # must contain SKILL.md
-skillgrade init     # writes a template eval.yaml (no API key needed)
+bash scripts/skillgrade.sh .agents/skills/<skill-name> init
 ```
 
-`skillgrade init` without an API key produces a **TODO template** — its grader is
+With `GEMINI_API_KEY` (or similar) in the repo-root `.env`, `init` uses AI to
+generate tasks. Without an API key it produces a **TODO template** — its grader is
 a stub that always scores 0. Replace the `tasks:` block with a real instruction
 and grader (see `example-eval.yaml`) before running.
 
@@ -110,8 +125,11 @@ and grader (see `example-eval.yaml`) before running.
 - **The repo's `evals/*.json` and `benchmark.json` are NOT skillgrade's format.**
   They come from a separate evaluator (`provider: claude-cli`). skillgrade uses
   `eval.yaml` and writes to `$TMPDIR/skillgrade/...`, not back into the repo.
-- **Run skillgrade from the skill dir, on a copy.** It auto-detects the skill
-  from the nearest `SKILL.md`; running at the repo root finds many skills.
+- **Use `scripts/skillgrade.sh` instead of calling `skillgrade` directly** so the
+  repo-root `.env` is loaded. The wrapper `cd`s into the skill dir; running bare
+  `skillgrade` at the repo root finds many skills.
+- **Run evals on a copy when experimenting.** It auto-detects the skill from the
+  nearest `SKILL.md`.
 
 ## Troubleshooting
 
