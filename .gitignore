@@ -1,1 +1,4 @@
 .env
+
+# Artefactos transitorios de las corridas de evals
+.agents/skills/*/evals/runs/

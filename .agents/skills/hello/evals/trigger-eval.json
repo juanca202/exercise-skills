@@ -1,0 +1,22 @@
+[
+  {"query": "hola", "should_trigger": true},
+  {"query": "buenos días!", "should_trigger": true},
+  {"query": "hey", "should_trigger": true},
+  {"query": "qué tal, todo bien?", "should_trigger": true},
+  {"query": "saludos", "should_trigger": true},
+  {"query": "good morning", "should_trigger": true},
+  {"query": "buenas", "should_trigger": true},
+  {"query": "salut", "should_trigger": true},
+  {"query": "konnichiwa", "should_trigger": true},
+  {"query": "holaa buen día", "should_trigger": true},
+  {"query": "hola, ¿me ayudas a crear el PR de la rama feature/login?", "should_trigger": false},
+  {"query": "buenos días, revisa el bug en auth.js porfa", "should_trigger": false},
+  {"query": "cómo le digo \"hola\" a un cliente en un correo formal?", "should_trigger": false},
+  {"query": "traduce \"hello world\" al japonés", "should_trigger": false},
+  {"query": "necesito una función que imprima \"Hello World\" en Python", "should_trigger": false},
+  {"query": "agrega un endpoint GET /hello a la API", "should_trigger": false},
+  {"query": "qué significa \"salut\" en francés?", "should_trigger": false},
+  {"query": "renombra la variable greeting a welcomeMessage", "should_trigger": false},
+  {"query": "cómo se dice \"good morning\" en alemán e italiano?", "should_trigger": false},
+  {"query": "saluda al usuario en la pantalla de inicio con su nombre", "should_trigger": false}
+]

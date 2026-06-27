@@ -21,5 +21,5 @@ Responde con exactamente tres saludos en tres idiomas distintos. Si saluda en un
 
 **"good morning!"**
 🌅 Good morning!
-Que tengas un gran día,  Ich wünsche dir einen schönen Tag.
+Que tengas un gran día,  Ich wünsche dir einen schönen Tag, Come va?
 What can I help you with today?
