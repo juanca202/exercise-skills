@@ -113,12 +113,24 @@ Es una estrategia en la que un agente de IA solo carga la información que neces
 
 - **Prompting**, Instrucciones simples cuando detecta una intención. [Hello](.agents/skills/hello/SKILL.md)
 - **Workflow**, Tareas en pasos secuenciales. [Quick plan](.agents/skills/quick-plan/SKILL.md)
-- **Handoffs**, Delegación de tareas a subagentes. [Compare products](.agents/skills/compare-products/SKILL.md)
+- **Handoffs**, Delegación de tareas a subagentes y le comparte un contexto especifico. [Compare products](.agents/skills/compare-products/SKILL.md)
+
+![Diagrama de handoff entre agentes](./assets/handoff.png)
+
 - **Planning**, Crea plan y luego ejecuta. [Scaffold feature](.agents/skills/scaffold-feature/SKILL.md)
+- **Reflection**, Revisa y mejora su propia respuesta antes de entregarla
+
+| Planning                    | Reflection                |
+| --------------------------- | ------------------------- |
+| Antes de actuar             | Después de actuar         |
+| Planifica la estrategia     | Evalúa el resultado       |
+| Reduce errores de ejecución | Reduce errores de calidad |
+
 - **ReAct (Reason + Act)**, Observa y luego actúa. [NPM Audit](.agents/skills/npm-audit/SKILL.md)
 - **Memory**, Mantiene estado entre sesiones. [Memory](.agents/skills/remember/SKILL.md), [Tasks](.agents/skills/task-lifecycle/SKILL.md)
 
 Un skill no tiene por qué implementar un solo patrón, sino que puede combinar varios para resolver tareas complejas de forma más robusta.
+
 
 ## Uso de tools
 
@@ -190,12 +202,6 @@ Cuando un agente ejecuta tu script, lee la salida estándar (**stdout**) y la sa
 - **Códigos de salida significativos.** Utiliza códigos de salida distintos para diferentes tipos de errores (por ejemplo, recurso no encontrado, argumentos inválidos o fallo de autenticación) y documéntalos en la salida de `--help` para que el agente conozca el significado de cada uno.
 - **Valores predeterminados seguros.** Considera si las operaciones destructivas deben requerir indicadores de confirmación explícitos (como `--confirm` o `--force`) u otras medidas de protección acordes al nivel de riesgo.
 - **Tamaño de salida predecible.** Muchos entornos de ejecución de agentes truncan automáticamente la salida de una herramienta cuando supera un determinado límite (por ejemplo, entre **10 000 y 30 000 caracteres**), lo que puede provocar la pérdida de información importante. Si tu script puede generar una salida muy grande, haz que por defecto muestre un resumen o una cantidad razonable de resultados, y proporciona opciones como `--limit` y `--offset` para que el agente pueda solicitar más información cuando la necesite. Como alternativa, si la salida es demasiado grande para paginarse, exige que el agente utilice una opción como `--output` para indicar un archivo de salida o  para confirmar explícitamente que la salida debe enviarse a la salida estándar (`stdout`).
-
-## Handoffs
-
-Es el mecanismo mediante el cual un agente transfiere el control, el contexto o una tarea a otro agente, skill o fase del proceso.
-
-![Diagrama de handoff entre agentes](./assets/handoff.png)
 
 ## Evaluación de skills
 
