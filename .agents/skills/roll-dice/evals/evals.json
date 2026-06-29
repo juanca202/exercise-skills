@@ -18,6 +18,7 @@
         "Muestra un resultado numérico de la tirada"
       ],
       "usage_assertions": [
+        {"text": "Tira con 20 caras (las indicadas explícitamente en el mensaje)", "type": "tool_used", "tool": "Bash", "input_contains": "% 20"},
         {"text": "Ejecuta el generador aleatorio (Bash con RANDOM/Get-Random) en vez de inventar el número", "type": "tool_used", "tool": "Bash", "input_contains": "RANDOM"},
         {"text": "No lanza subagentes para una tarea tan simple", "type": "agent_not_spawned"}
       ]
@@ -34,13 +35,12 @@
         "verify": {"file": "MEMORY.md", "must_contain": "8 caras por defecto"}
       },
       "assertions": [
-        "Consulta/lee MEMORY.md",
         "Usa 8 caras (resultado entre 1 y 8) según la regla de memoria",
         "No le pregunta al usuario cuántas caras tiene el dado",
         "Muestra un resultado numérico de la tirada"
       ],
       "usage_assertions": [
-        {"text": "Lee MEMORY.md antes de tirar (cualquier herramienta: Read o Bash)", "type": "tool_used", "tool": null, "input_contains": "MEMORY.md"},
+        {"text": "Tira con 8 caras: aplica la regla de MEMORY.md sin preguntar", "type": "tool_used", "tool": "Bash", "input_contains": "% 8"},
         {"text": "Ejecuta el generador aleatorio (Bash con RANDOM/Get-Random)", "type": "tool_used", "tool": "Bash", "input_contains": "RANDOM"}
       ]
     },

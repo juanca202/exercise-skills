@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Orquesta el ciclo completo de evals de roll-dice de forma autónoma:
+# Orquesta el ciclo completo de evals de quick-plan de forma autónoma:
 #   prepare (worktree + fixture verificado) -> run (claude -p headless) -> grade -> cleanup
 #
 # Cada eval corre en su propio git worktree con su MEMORY.md sembrado, así los
@@ -58,14 +58,14 @@ run_one() {
 
   local prompt skill
   prompt="$(python3 -c "import json;print(next(e['prompt'] for e in json.load(open('$EVALS'))['evals'] if e['id']==$id))")"
-  skill="$(cat "$wtpath/.agents/skills/roll-dice/SKILL.md")"
+  skill="$(cat "$wtpath/.agents/skills/quick-plan/SKILL.md")"
 
   echo "[$id] run: claude -p \"$prompt\" (cwd=worktree)"
   ( cd "$wtpath" && claude -p "$prompt" \
       --output-format stream-json --verbose \
       --allowedTools $ALLOWED \
       ${MODEL:+--model "$MODEL"} \
-      --append-system-prompt "Tienes disponible el skill roll-dice. Síguelo al pie de la letra para esta tarea:
+      --append-system-prompt "Tienes disponible el skill quick-plan. Síguelo al pie de la letra para esta tarea:
 
 $skill" \
     ) > "$rundir/events.jsonl" 2>"$rundir/run.err"
