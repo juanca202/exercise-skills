@@ -71,7 +71,7 @@ metadata:
 | --------- | -------------------------------------- | ------------------------------- |
 | Project   | `**<project>/.<your-client>/skills/`** | Ubicación nativa de un agente   |
 | Project   | `**<project>/.agents/skills/`**        | Interoperabilidad entre agentes |
-| User      | `**~/.<your-client>/skills/**`         | Ubicación nativa de un agente   |
+| User      | `**~/.<your-client>/skills/`**         | Ubicación nativa de un agente   |
 | User      | `**~/.agents/skills/**`                | Interoperabilidad entre agentes |
 
 
@@ -175,7 +175,7 @@ Cuando un agente ejecuta tu script, lee la salida estándar (**stdout**) y la sa
 
 Es el mecanismo mediante el cual un agente transfiere el control, el contexto o una tarea a otro agente, skill o fase del proceso.
 
-![Diagrama de handoff entre agentes](./assets/handoff.png)
+Diagrama de handoff entre agentes
 
 # Evaluación de skills
 
@@ -190,15 +190,13 @@ La **evaluación de skills (skill evaluation o evals)** es el proceso de comprob
 ## Qué se suele evaluar
 
 
-| Aspecto                    | Descripción                                                       |
-| -------------------------- | ----------------------------------------------------------------- |
-| Activación / No activación | El skill se usa cuando corresponde.                               |
-| Respuesta con / sin skill  | El skill contribuye a la respuesta esperada                       |
-| Formato                    | La salida cumple el formato esperado                              |
-| Completitud                | No falta información obligatoria                                  |
-| Calidad                    | La respuesta contiene la información requerida                    |
-| Uso de herramientas        | El skill llama a las herramientas adecuadas                       |
-| Regresión                  | Garantizar que un skill **no empeora** cuando haces cambios en él |
+| Aspecto                         | Descripción                                                                                                            |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Activación / No activación      | El skill se usa cuando corresponde.                                                                                    |
+| Respuesta con / sin skill       | El skill contribuye a la respuesta esperada                                                                            |
+| Formato / Completitud / Calidad | La salida cumple el formato esperado, no falta información obligatoria, La respuesta contiene la información requerida |
+| Uso de herramientas             | El skill llama a las herramientas adecuadas                                                                            |
+| Regresión                       | Garantizar que un skill **no empeora** cuando haces cambios en él                                                      |
 
 
 Las evals cumplen para los skills el mismo papel que los tests automatizados cumplen para el código, garantizar que el comportamiento esperado se mantiene a lo largo del tiempo.
@@ -211,7 +209,6 @@ Estructura común de un eval:
   "name": "saludo-es",
   "prompt": "buenas tardes",
   "expected_output": "Tres saludos en tres idiomas distintos, un emoji y una línea final ofreciendo ayuda en tono coloquial.",
-  "files": [],
   "assertions": [
       "Incluye al menos un emoji",
       "Contiene exactamente tres saludos en tres idiomas distintos",
