@@ -1,22 +1,40 @@
-# Skills
+# Agent skills
 
-> ## Un skill es un mecanismo para proporcionar contexto especializado y canalizar las capacidades cognitivas de un agente hacia una tarea específica.
+## ¿Qué es un skill?
+
+> ## Un skill es un mecanismo que proporciona contexto especializado y guía el razonamiento de un agente de IA para resolver una tarea específica de manera consistente.
 
 **Especificación:** [agentskills.io](https://agentskills.io/)
-
-La especificación recomienda mantener `SKILL.md` por debajo de **500 líneas** y **5.000 tokens**, moviendo la lógica compleja a scripts o recursos externos para optimizar el uso del contexto.
 
 Un skill puede contener desde instrucciones simples hasta flujos complejos que involucren agentes, herramientas, otros skills, scripts y archivos de contexto.
 
 Los skills permiten reutilizar conocimiento durante el desarrollo y ampliar las capacidades de los agentes de IA.
 
-# Como empezar
+## ¿Cómo decide un agente usar un skill?
+
+Los agentes no suelen cargar el contenido completo de todos los skills al iniciar, ya que consumiría demasiados tokens. En su lugar, utilizan una estrategia de carga progresiva de contexto.
+
+1. Leen el **name** y **description** del frontmatter de todos los skills disponibles.
+2. Comparan la solicitud del usuario con esas descripciones.
+3. Si un skill parece relevante, cargan su archivo SKILL.md.
+4. Durante la ejecución, pueden cargar recursos adicionales (scripts, documentación, plantillas, etc.) solo cuando son necesarios.
+
+Por este motivo, el campo **description** es uno de los elementos más importantes de un skill: debe explicar claramente qué hace y cuándo debe utilizarse.
+
+## Cómo empezar
 
 ```bash
 npx skills add https://github.com/anthropics/skills --skill skill-creator
 ```
 
-# Estructura de archivos
+La mayoría de agentes de IA tiene su propio skill de creación de skills: 
+
+- Claude (/skill-creator) **(En experiencia de momento el mejor)**
+- Cursor (/create-skill)
+- Github Copilot (/create-skill)
+- Codex (/skill-creator).
+
+## Estructura de archivos
 
 ```jsx
 skill-name/
@@ -27,7 +45,9 @@ skill-name/
 └── ...               # Any additional files or directories
 ```
 
-# Frontmatter
+La especificación recomienda mantener `SKILL.md` por debajo de **500 líneas** y **5.000 tokens**, moviendo la lógica compleja a scripts o recursos externos para optimizar el uso del contexto.
+
+## Frontmatter
 
 Es un bloque de metadatos ubicado al inicio de un archivo, generalmente escrito en formato YAML y delimitado por `---`. Se utiliza para definir información descriptiva y de configuración que puede ser procesada por herramientas o agentes.
 
@@ -64,7 +84,7 @@ metadata:
 ---
 ```
 
-# Donde viven
+## Dónde viven los skills
 
 
 | **Scope** | **Path**                               | **Purpose**                     |
@@ -75,9 +95,9 @@ metadata:
 | User      | `**~/.agents/skills/**`                | Interoperabilidad entre agentes |
 
 
-**Nota:** Claude Code no lee los archivos en la carpeta `.agents/`
+> **Nota:** Claude Code no lee los archivos en la carpeta `.agents/`
 
-# Carga progresiva de contexto
+## Carga progresiva de contexto
 
 Es una estrategia en la que un agente de IA solo carga la información que necesita en cada momento, en lugar de cargar todo el conocimiento disponible desde el inicio.
 
@@ -89,21 +109,22 @@ Es una estrategia en la que un agente de IA solo carga la información que neces
 | **Nivel 3+: Recursos**     | Según sea necesario         | Prácticamente ilimitado | Archivos auxiliares del Skill (scripts, documentación, ejemplos, plantillas, etc.) que pueden ejecutarse o cargarse al contexto bajo demanda. |
 
 
-# Tipos
+## Patrones de skills
 
-- **Prompt skill**, Instrucciones simples cuando detecta una inteción.
-- **Skill basada en Workflow**, Tarea en pasos secuenciales.
-- **Skill con Handoffs**, Delega tareas a subagentes.
-- **Skill basada en Planificación**, Crea plan y luego ejecuta.
-- **Skill ReAct (Reason + Act)**, Observa y luego actúa.
-- **Skill con Memoria**, Mantiene estado entre sesiones.
-- **Skill basada en Estado**, Cada fase tiene reglas de transición.
+- **Prompting**, Instrucciones simples cuando detecta una intención. [Hello](.agents/skills/hello/SKILL.md)
+- **Workflow**, Tareas en pasos secuenciales. [Quick plan](.agents/skills/quick-plan/SKILL.md)
+- **Handoffs**, Delegación de tareas a subagentes. [Compare products](.agents/skills/compare-products/SKILL.md)
+- **Planning**, Crea plan y luego ejecuta. [Scaffold feature](.agents/skills/scaffold-feature/SKILL.md)
+- **ReAct (Reason + Act)**, Observa y luego actúa. [NPM Audit](.agents/skills/npm-audit/SKILL.md)
+- **Memory**, Mantiene estado entre sesiones. [Memory](.agents/skills/remember/SKILL.md), [Tasks](.agents/skills/task-lifecycle/SKILL.md)
 
-# Uso de tools
+Un skill no tiene por qué implementar un solo patrón, sino que puede combinar varios para resolver tareas complejas de forma más robusta.
+
+## Uso de tools
 
 Los **tools (herramientas)** son capacidades que permiten a un agente de IA interactuar con su entorno y realizar acciones reales, como leer y editar archivos, ejecutar comandos, buscar información en la web, consultar APIs o utilizar otros servicios. Gracias a estas herramientas, el agente no solo genera respuestas, sino que también puede inspeccionar, modificar y operar sobre sistemas externos para completar tareas de forma autónoma.
 
-## Comparativa de tools por agente
+### Comparativa de tools por agente
 
 
 | Cursor           | Codex                   | Claude Code                 | Para qué sirve                                                   |
@@ -138,7 +159,7 @@ Los **tools (herramientas)** son capacidades que permiten a un agente de IA inte
 | —                | —                       | Agent                       | Ejecutar un subagente Claude Code de forma aislada               |
 
 
-# Uso de scripts
+## Uso de scripts
 
 En general, si el problema puede resolverse mediante un algoritmo determinista y potencialmente involucra muchos datos, suele ser más eficiente llamar a un script. Si requiere interpretación, razonamiento o generación de contenido, suele ser mejor dejarlo al agente.
 
@@ -155,7 +176,7 @@ En general, si el problema puede resolverse mediante un algoritmo determinista y
 | Manipular archivos (PDF, DOCX, XLSX) | ❌      | ✅      |
 
 
-## Consideraciones
+### Consideraciones para uso de scripts
 
 Cuando un agente ejecuta tu script, lee la salida estándar (**stdout**) y la salida de error (**stderr**) para decidir qué hacer a continuación. Algunas decisiones de diseño hacen que los scripts sean mucho más fáciles de usar para los agentes.
 
@@ -163,31 +184,30 @@ Cuando un agente ejecuta tu script, lee la salida estándar (**stdout**) y la sa
 - **Documenta el uso con** `--help` es la principal forma en que un agente aprende cómo interactuar con tu script.
 - **Escribe mensajes de error útiles** (Cuando un agente recibe un error, el mensaje influye directamente en su siguiente intento)
 - **Utiliza salidas estructuradas** (Prefiere formatos estructurados, como **JSON**, **CSV** o **TSV**, en lugar de texto libre.)
-- 
 - **Idempotencia.** Los agentes pueden reintentar la ejecución de comandos. Un comportamiento como **"crear si no existe"** es más seguro que **"crear y fallar si ya existe"**.
 - **Restricciones de entrada.** Rechaza entradas ambiguas con un mensaje de error claro en lugar de hacer suposiciones. Siempre que sea posible, utiliza **enumeraciones (enums)** y conjuntos de valores cerrados.
-- **Soporte para `--dry-run`.** En operaciones destructivas o que modifican el estado, una opción como `--dry-run` permite al agente previsualizar lo que ocurrirá antes de ejecutar la acción.
+- **Soporte para** `--dry-run`**.** En operaciones destructivas o que modifican el estado, una opción como `--dry-run` permite al agente previsualizar lo que ocurrirá antes de ejecutar la acción.
 - **Códigos de salida significativos.** Utiliza códigos de salida distintos para diferentes tipos de errores (por ejemplo, recurso no encontrado, argumentos inválidos o fallo de autenticación) y documéntalos en la salida de `--help` para que el agente conozca el significado de cada uno.
 - **Valores predeterminados seguros.** Considera si las operaciones destructivas deben requerir indicadores de confirmación explícitos (como `--confirm` o `--force`) u otras medidas de protección acordes al nivel de riesgo.
 - **Tamaño de salida predecible.** Muchos entornos de ejecución de agentes truncan automáticamente la salida de una herramienta cuando supera un determinado límite (por ejemplo, entre **10 000 y 30 000 caracteres**), lo que puede provocar la pérdida de información importante. Si tu script puede generar una salida muy grande, haz que por defecto muestre un resumen o una cantidad razonable de resultados, y proporciona opciones como `--limit` y `--offset` para que el agente pueda solicitar más información cuando la necesite. Como alternativa, si la salida es demasiado grande para paginarse, exige que el agente utilice una opción como `--output` para indicar un archivo de salida o  para confirmar explícitamente que la salida debe enviarse a la salida estándar (`stdout`).
 
-# Handoffs
+## Handoffs
 
 Es el mecanismo mediante el cual un agente transfiere el control, el contexto o una tarea a otro agente, skill o fase del proceso.
 
 ![Diagrama de handoff entre agentes](./assets/handoff.png)
 
-# Evaluación de skills
+## Evaluación de skills
 
 La **evaluación de skills (skill evaluation o evals)** es el proceso de comprobar automáticamente que un skill se comporta como se espera ante distintos escenarios. La idea es similar a las pruebas unitarias en software.
 
-## Referencias
+### Referencias
 
 - Claude - npx skills add [https://github.com/anthropics/skills](https://github.com/anthropics/skills) --skill skill-creator
 - vskill - [https://verified-skill.com/](https://verified-skill.com/)
 - skillgrade - [https://blog.mgechev.com/2026/03/14/skillgrade/](https://blog.mgechev.com/2026/03/14/skillgrade/)
 
-## Qué se suele evaluar
+### Qué se suele evaluar
 
 
 | Aspecto                         | Descripción                                                                                                            |
@@ -217,20 +237,20 @@ Estructura común de un eval:
 }
 ```
 
-# skill-creator
+## skill-creator
 
 ```bash
 # Creación de skill
 /skill-creator [descripcion de que debe hacer el skill]
 
 # Evaluación de skill
-/skill-creator evalua el skill [nombre del skill]
+/skill-creator evalúa el skill [nombre del skill]
 ```
 
-# Vskill
+## Vskill
 
 ```bash
-# Creacion de evals
+# Creación de evals
 npx vskill eval init skills/prompt-validate
 
 # Ejecuta las pruebas
@@ -246,10 +266,10 @@ npx vskill studio
 npx vskill scan ./skills/roll-dice 
 ```
 
-# Skillgrade
+## Skillgrade
 
 ```bash
-# Creacion de evals
+# Creación de evals
 npx skillgrade init 
 
 # CLI report
@@ -262,7 +282,7 @@ npx skillgrade preview browser
 npx skillgrade --smoke
 ```
 
-# Evaluation harness
+## Evaluation harness
 
 El evaluation harness (o harness de evaluación) es el programa que orquesta la ejecución de las pruebas. No son las pruebas en sí, sino el sistema que las ejecuta y mide los resultados.
 
