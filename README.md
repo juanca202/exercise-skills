@@ -177,22 +177,6 @@ Es el mecanismo mediante el cual un agente transfiere el control, el contexto o 
 
 ![Diagrama de handoff entre agentes](./assets/handoff.png)
 
-## Ejemplo: Reflection Loop
-
-La salida pasa por otro agente.
-
-```
-Implementador
-      ↓
-Reviewer
-      ↓
-Implementador
-      ↓
-Resultado
-```
-
-Muy usado para código.
-
 # Evaluación de skills
 
 La **evaluación de skills (skill evaluation o evals)** es el proceso de comprobar automáticamente que un skill se comporta como se espera ante distintos escenarios. La idea es similar a las pruebas unitarias en software.
