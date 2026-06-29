@@ -118,7 +118,7 @@ Es una estrategia en la que un agente de IA solo carga la información que neces
 ![Diagrama de handoff entre agentes](./assets/handoff.png)
 
 - **Planning**, Crea plan y luego ejecuta. [Scaffold feature](.agents/skills/scaffold-feature/SKILL.md)
-- **Reflection**, Revisa y mejora su propia respuesta antes de entregarla
+- **Reflection**, Revisa y mejora su propia respuesta antes de entregarla. [Reflection](.agents/skills/reflection/SKILL.md)
 
 | Planning                    | Reflection                |
 | --------------------------- | ------------------------- |
