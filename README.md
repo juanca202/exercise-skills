@@ -175,7 +175,7 @@ Cuando un agente ejecuta tu script, lee la salida estándar (**stdout**) y la sa
 
 Es el mecanismo mediante el cual un agente transfiere el control, el contexto o una tarea a otro agente, skill o fase del proceso.
 
-Diagrama de handoff entre agentes
+![Diagrama de handoff entre agentes](./assets/handoff.png)
 
 # Evaluación de skills
 
