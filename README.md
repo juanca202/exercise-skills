@@ -1,6 +1,6 @@
 # Skills
 
-Un **Skill** es una capacidad reutilizable que permite a un agente de IA realizar tareas específicas mediante instrucciones y recursos agrupados en un archivo `SKILL.md` y archivos auxiliares.
+> ## Un skill es un mecanismo para proporcionar contexto especializado y canalizar las capacidades cognitivas de un agente hacia una tarea específica.
 
 **Especificación:** [agentskills.io](https://agentskills.io/)
 
