@@ -19,7 +19,7 @@ ls results/ 2>/dev/null | grep -E '^[0-9]{3}-' | sort | tail -1
 - Si hay archivos: toma el número del último y suma 1.
 - Si no hay archivos: empieza en `001`.
 
-Crea `plan/{slug}.md`:
+Crea `plan/{NNN}-{slug}.md`:
 
 ```markdown
 # Plan: {nombre}
